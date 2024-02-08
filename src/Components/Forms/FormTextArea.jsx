@@ -1,8 +1,38 @@
+import propTypes from "prop-types";
 
-const FormTextArea = () => {
+const FormTextArea = (props) => {
+  const { name, label, placeholder, value, handleOnChange, required } = props;
+
   return (
-    <div>FormTextArea</div>
-  )
-}
+    <>
+      <div>
+        <div className="mb-3 ">
+          <label htmlFor={name} className="font-bold text-gray-900 mb-1 block">
+            {label}
+            {required ? <span className="ml-1 text-red-500">*</span> : ""}
+          </label>
+          <textarea
+            id={name}
+            name={name}
+            placeholder={placeholder}
+            value={value}
+            onChange={handleOnChange}
+            required={required}
+            className="w-full rounded py-2 px-3 font-semibold outline-none bg-[#EEEDEB] "
+          ></textarea>
+        </div>
+      </div>
+    </>
+  );
+};
 
-export default FormTextArea
+export default FormTextArea;
+
+FormTextArea.propTypes = {
+  name: propTypes.string,
+  label: propTypes.string,
+  value: propTypes.string,
+  placeholder: propTypes.string,
+  required: propTypes.bool,
+  handleOnChange: propTypes.func,
+};

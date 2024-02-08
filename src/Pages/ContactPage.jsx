@@ -1,10 +1,15 @@
 import { useState } from "react";
 import FormInput from "../Components/Forms/FormInput";
 import FormButton from "../Components/buttons/FormButton";
+import FormTextArea from "../Components/Forms/FormTextArea";
 
 const ContactPage = () => {
   // 🔴
-  const [formInputs, setFormInputs] = useState({ Fullname: "", email: "" });
+  const [formInputs, setFormInputs] = useState({
+    Fullname: "",
+    email: "",
+    description: "",
+  });
 
   const handleInputs = (e) => {
     const { name, value } = e.target;
@@ -12,6 +17,13 @@ const ContactPage = () => {
       ...oldState,
       [name]: value,
     }));
+  };
+
+  const submitFormToServer = (e) => {
+    e.preventDefault();
+
+    console.log(formInputs);
+    alert("Form submitted, successfully!");
   };
 
   return (
@@ -23,32 +35,39 @@ const ContactPage = () => {
           </div>
 
           <div className="bg-[#FEFBF6] px-2 py-2 rounded shadow shadow-[#EEF0E5] mt-6 mb-5">
-            <form className="">
+            <form action="" onSubmit={submitFormToServer}>
               <FormInput
-                // Forms input Object key name and component must be same
+                // Forms input Object key name and component name must be same
                 name="Fullname" // 🔴
-                type="text"
                 label="Enter your Fullname"
                 placeholder="Enter your fullname"
                 value={formInputs.Fullname}
                 handleOnChange={handleInputs}
-                required={true}
-                />
+                required
+              />
 
               <FormInput
                 name="email"
-                type="email"
                 label="Enter Your Email"
                 placeholder="Enter your email address"
                 value={formInputs.email}
                 handleOnChange={handleInputs}
                 required={true}
               />
-            </form>
-          </div>
 
-          <div>
-            <FormButton name="Submit" />
+              <FormTextArea
+                name="description"
+                label="Enter Your Description"
+                placeholder="Describe your issue here!"
+                value={formInputs.description}
+                handleOnChange={handleInputs}
+                required
+              />
+
+              <div>
+                <FormButton name="Submit" />
+              </div>
+            </form>
           </div>
         </section>
       </main>
