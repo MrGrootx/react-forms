@@ -8,7 +8,6 @@ const ContactPage = () => {
 
   const handleInputs = (e) => {
     const { name, value } = e.target;
-    console.log(name);
     setFormInputs((oldState) => ({
       ...oldState,
       [name]: value,
@@ -33,7 +32,8 @@ const ContactPage = () => {
                 placeholder="Enter your fullname"
                 value={formInputs.Fullname}
                 handleOnChange={handleInputs}
-              />
+                required={true}
+                />
 
               <FormInput
                 name="email"
@@ -42,6 +42,7 @@ const ContactPage = () => {
                 placeholder="Enter your email address"
                 value={formInputs.email}
                 handleOnChange={handleInputs}
+                required={true}
               />
             </form>
           </div>
