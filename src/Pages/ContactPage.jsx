@@ -1,4 +1,5 @@
 import FormInput from "../Components/Forms/FormInput";
+import FormButton from "../Components/buttons/FormButton";
 
 const ContactPage = () => {
   return (
@@ -27,9 +28,7 @@ const ContactPage = () => {
           </div>
 
           <div>
-            <button className="bg-[#FF004D] px-6 py-1 rounded font-bold text-white text-xl hover:bg-[#ff004cd9] transition-all duration-200">
-              Submit
-            </button>
+            <FormButton name="Submit"/>
           </div>
         </section>
       </main>
