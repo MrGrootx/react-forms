@@ -1,3 +1,4 @@
+import { useForm } from "react-hook-form";
 import { useState } from "react";
 import FormInput from "../Components/Forms/FormInput";
 import FormButton from "../Components/buttons/FormButton";
@@ -6,11 +7,12 @@ import FormTextArea from "../Components/Forms/FormTextArea";
 const ContactPage = () => {
   // 🔴
   const [formInputs, setFormInputs] = useState({
-    Fullname: "",
+    fullname: "",
     email: "",
     description: "",
   });
 
+  // Handle inputs
   const handleInputs = (e) => {
     const { name, value } = e.target;
     setFormInputs((oldState) => ({
@@ -19,11 +21,14 @@ const ContactPage = () => {
     }));
   };
 
-  const submitFormToServer = (e) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-    console.log(formInputs);
-    alert("Form submitted, successfully!");
+  const formSubmit = () => {
+    alert("Form Subbmited");
   };
 
   return (
@@ -35,24 +40,29 @@ const ContactPage = () => {
           </div>
 
           <div className="bg-[#FEFBF6] px-2 py-2 rounded shadow shadow-[#EEF0E5] mt-6 mb-5">
-            <form action="" onSubmit={submitFormToServer}>
+            <form action="" onSubmit={handleSubmit(formSubmit)}>
               <FormInput
                 // Forms input Object key name and component name must be same
-                name="Fullname" // 🔴
+                register={register}
+                name="fullname" // 🔴
                 label="Enter your Fullname"
                 placeholder="Enter your fullname"
-                value={formInputs.Fullname}
+                value={formInputs.fullname}
                 handleOnChange={handleInputs}
-                required
+                errors={errors}
+
+                // required
               />
 
               <FormInput
+                register={register}
                 name="email"
                 label="Enter Your Email"
                 placeholder="Enter your email address"
                 value={formInputs.email}
                 handleOnChange={handleInputs}
-                required={true}
+                // required={true}
+                errors={errors}
               />
 
               <FormTextArea
@@ -61,7 +71,7 @@ const ContactPage = () => {
                 placeholder="Describe your issue here!"
                 value={formInputs.description}
                 handleOnChange={handleInputs}
-                required
+                // required
               />
 
               <div>
