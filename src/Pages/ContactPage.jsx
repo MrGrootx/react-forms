@@ -4,6 +4,7 @@ import FormInput from "../Components/Forms/FormInput";
 import FormButton from "../Components/buttons/FormButton";
 import FormTextArea from "../Components/Forms/FormTextArea";
 import FormCheckBox from "../Components/Forms/FormCheckBox";
+import FormRadiobtn from "../Components/Forms/FormRadiobtn";
 
 const ContactPage = () => {
   // 🔴
@@ -12,22 +13,18 @@ const ContactPage = () => {
     email: "",
     description: "",
     privacycheck: false,
+    gender: "Male",
   });
 
   // Handle inputs
   const handleInputs = (e) => {
     const { name, value, type, checked } = e.target;
-    if (type === "checkbox") {
-      setFormInputs((oldState) => ({
-        ...oldState,
-        [name]: checked,
-      }));
-    } else {
-      setFormInputs((oldState) => ({
-        ...oldState,
-        [name]: value,
-      }));
-    }
+    console.log(value);
+
+    setFormInputs(() => ({
+      ...formInputs,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const {
@@ -85,6 +82,34 @@ const ContactPage = () => {
                   handleOnChange={handleInputs}
                   // required
                 />
+
+                {/* Radio */}
+
+                <p className="font-bold text-gray-900 mb-1 block">Gender</p>
+                <div className="flex items-center gap-x-2">
+                  <FormRadiobtn
+                    name="gender"
+                    label="Male"
+                    value="Male"
+                    handleOnChange={handleInputs}
+                    checked={formInputs.gender === "Male"}
+                  />
+
+                  <FormRadiobtn
+                    name="gender"
+                    label="Female"
+                    value="Female"
+                    checked={formInputs.gender === "Female"}
+                    handleOnChange={handleInputs}
+                  />
+                  <FormRadiobtn
+                    name="gender"
+                    label="Other"
+                    value="Other"
+                    checked={formInputs.gender === "Other"}
+                    handleOnChange={handleInputs}
+                  />
+                </div>
 
                 <FormCheckBox
                   name="privacycheck"
