@@ -12,7 +12,7 @@ const FormInput = (props) => {
     errors,
   } = props;
 
-  console.log(errors);//
+
 
   return (
     <>
