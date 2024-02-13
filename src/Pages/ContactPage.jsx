@@ -36,6 +36,9 @@ const ContactPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
+    defaultValues: {
+      gender: "Male"
+    },
     resolver: zodResolver(validationData),
   });
 
