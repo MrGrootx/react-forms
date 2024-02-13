@@ -6,15 +6,36 @@ import FormTextArea from "../Components/Forms/FormTextArea";
 import FormCheckBox from "../Components/Forms/FormCheckBox";
 import FormRadiobtn from "../Components/Forms/FormRadiobtn";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { z } from "zod";
+
+const validationData = z.object({
+  fullname: z
+    .string()
+    .min(3, "Fullname must be at least 3 characters")
+    .max(15, { message: "fullname is to long" }),
+  email: z
+    .string()
+    .email({ message: "Enter a valid email address", required_error: "yes" })
+    .trim()
+    .toLowerCase(),
+  description: z
+    .string()
+    .min(10, { message: "Description must be at least 20 characters" })
+    .max(120),
+  privacycheck: z.boolean().refine((v) => v === true, { // For CheckBox
+    message: "Please accept our privacy policy",
+  }),
+});
+
 const ContactPage = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    // defaultValues: {
-    //   fullname: "Abishek",
-    // },
+    resolver: zodResolver(validationData),
   });
 
   const formSubmit = (e) => {
@@ -35,9 +56,7 @@ const ContactPage = () => {
             <div className="bg-[#FEFBF6] px-2 py-2 rounded shadow shadow-[#EEF0E5] mt-6 mb-5 max-w-[500px] mx-auto ">
               <form action="" onSubmit={handleSubmit(formSubmit)} className="">
                 <FormInput
-                  register={register("fullname", {
-                    required: "Fullname is required",
-                  })}
+                  register={register("fullname")}
                   name="fullname" // 🔴
                   label="Enter your Fullname"
                   placeholder="Enter your fullname"
@@ -56,23 +75,29 @@ const ContactPage = () => {
                   required
                 />
 
-                {/* service Types */}
                 <FormTextArea
                   register={register("description")}
                   name="description"
                   label="Enter Your Description"
                   placeholder="Describe your issue here!"
+                  errors={errors.description}
+                  required
                 />
 
                 {/* Radio */}
 
-                <p className="font-bold text-gray-900 mb-1 block">Gender</p>
+                <div className="flex">
+                  <p className="font-bold text-gray-900 mb-1 block">Gender</p>
+                  <span className="ml-1 text-red-500">*</span>
+                </div>
+
                 <div className="flex items-center gap-x-2">
                   <FormRadiobtn
+                    register={register("gender")}
                     name="gender"
                     label="Male"
                     value="Male"
-                    register={register("gender")}
+                    errors={errors.gender}
                   />
 
                   <FormRadiobtn
@@ -80,6 +105,8 @@ const ContactPage = () => {
                     label="Female"
                     value="Female"
                     register={register("gender")}
+                    errors={errors.gender}
+                    required={true}
                   />
                   <FormRadiobtn name="gender" label="Other" value="Other" />
                 </div>
@@ -88,6 +115,7 @@ const ContactPage = () => {
                   register={register("privacycheck")}
                   name="privacycheck"
                   label={"I agree to the Privacy policy."}
+                  errors={errors.privacycheck}
                 />
 
                 <div>
