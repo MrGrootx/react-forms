@@ -12,9 +12,9 @@ const ContactPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      fullname: "Abishek",
-    },
+    // defaultValues: {
+    //   fullname: "Abishek",
+    // },
   });
 
   const formSubmit = (e) => {
@@ -35,7 +35,6 @@ const ContactPage = () => {
             <div className="bg-[#FEFBF6] px-2 py-2 rounded shadow shadow-[#EEF0E5] mt-6 mb-5 max-w-[500px] mx-auto ">
               <form action="" onSubmit={handleSubmit(formSubmit)} className="">
                 <FormInput
-                  // Forms input Object key name and component name must be same
                   register={register("fullname", {
                     required: "Fullname is required",
                   })}
@@ -54,6 +53,7 @@ const ContactPage = () => {
                   label="Enter Your Email"
                   placeholder="Enter your email address"
                   errors={errors.email}
+                  required
                 />
 
                 {/* service Types */}
