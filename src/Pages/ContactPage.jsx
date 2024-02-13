@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { z } from "zod";
 
+// Zod Validation Schema
 const validationData = z.object({
   fullname: z
     .string()
@@ -45,7 +46,7 @@ const ContactPage = () => {
 
   return (
     <>
-      <main className="bg-[#1F2544] h-screen">
+      <main className="bg-[#1F2544] ">
         <section className="container mx-auto p-4">
           <div className="bg-[#EEEDEB] px-2 py-2 rounded shadow shadow-[#EEF0E5] ">
             <h4 className="text-2xl font-bold">Contact Us</h4>

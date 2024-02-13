@@ -1,7 +1,7 @@
 import propTypes from "prop-types";
 
 const FormTextArea = (props) => {
-  const { name, label, placeholder, register,errors,required } = props;
+  const { name, label, placeholder, register, errors, required } = props;
 
   return (
     <>
@@ -16,7 +16,11 @@ const FormTextArea = (props) => {
             name={name}
             placeholder={placeholder}
             {...register}
-            className="w-full rounded py-2 px-3 font-semibold outline-none bg-[#EEEDEB] "
+            className={
+              errors
+                ? "border-red-500 border w-full rounded py-2 px-3 font-semibold outline-none bg-[#EEEDEB] "
+                : "w-full rounded py-2 px-3 font-semibold outline-none bg-[#EEEDEB] "
+            }
           ></textarea>
           {errors && <small className="text-red-500">{errors.message}</small>}
         </div>

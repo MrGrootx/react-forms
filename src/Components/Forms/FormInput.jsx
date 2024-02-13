@@ -1,7 +1,7 @@
 import propTypes from "prop-types";
 
 const FormInput = (props) => {
-  const { name, label, placeholder, value, register,required,errors } = props;
+  const { name, label, placeholder, value, register, required, errors } = props;
 
   return (
     <>
@@ -18,7 +18,11 @@ const FormInput = (props) => {
             placeholder={placeholder}
             value={value}
             {...register}
-            className="w-full rounded py-2 px-3 font-semibold outline-none bg-[#EEEDEB] "
+            className={
+              errors
+                ? "border-red-500 border w-full rounded py-2 px-3 font-semibold outline-none bg-[#EEEDEB] "
+                : "w-full rounded py-2 px-3 font-semibold outline-none bg-[#EEEDEB] "
+            }
           />
           {errors && <small className="text-red-500">{errors.message}</small>}
         </div>
