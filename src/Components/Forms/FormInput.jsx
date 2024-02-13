@@ -1,18 +1,7 @@
 import propTypes from "prop-types";
 
 const FormInput = (props) => {
-  const {
-    name,
-    label,
-    placeholder,
-    value,
-    handleOnChange,
-    required,
-    register,
-    errors,
-  } = props;
-
-
+  const { name, label, placeholder, value, register,required } = props;
 
   return (
     <>
@@ -24,20 +13,13 @@ const FormInput = (props) => {
           </label>
           <input
             id={name}
-            {...register(name, {
-              required: true,
-              maxLength: 5,
-              pattern: /^[A-Za-z]+$/i,
-            })}
             name={name}
             type="text"
             placeholder={placeholder}
             value={value}
-            onChange={handleOnChange}
-            required={required}
+            {...register}
             className="w-full rounded py-2 px-3 font-semibold outline-none bg-[#EEEDEB] "
           />
-          {errors[name] ? <p>{name} is Required</p> : <></>} 
         </div>
       </div>
     </>
@@ -50,9 +32,8 @@ FormInput.propTypes = {
   name: propTypes.string,
   label: propTypes.string,
   value: propTypes.string,
-  placeholder: propTypes.string,
   required: propTypes.bool,
-  handleOnChange: propTypes.func,
-  register: propTypes.func,
+  placeholder: propTypes.string,
+  register: propTypes.object,
   errors: propTypes.object,
 };

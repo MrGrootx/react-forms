@@ -1,7 +1,7 @@
 import propTypes from "prop-types";
 
 const FormTextArea = (props) => {
-  const { name, label, placeholder, value, handleOnChange, required } = props;
+  const { name, label, placeholder, register, required } = props;
 
   return (
     <>
@@ -15,8 +15,7 @@ const FormTextArea = (props) => {
             id={name}
             name={name}
             placeholder={placeholder}
-            value={value}
-            onChange={handleOnChange}
+            {...register}
             required={required}
             className="w-full rounded py-2 px-3 font-semibold outline-none bg-[#EEEDEB] "
           ></textarea>
@@ -31,8 +30,7 @@ export default FormTextArea;
 FormTextArea.propTypes = {
   name: propTypes.string,
   label: propTypes.string,
-  value: propTypes.string,
   placeholder: propTypes.string,
   required: propTypes.bool,
-  handleOnChange: propTypes.func,
+  register: propTypes.object,
 };

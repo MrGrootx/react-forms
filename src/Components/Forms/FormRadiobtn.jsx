@@ -1,6 +1,6 @@
 import propTypes from "prop-types";
 
-const FormRadiobtn = ({ name, label, value, checked, handleOnChange }) => {
+const FormRadiobtn = ({ name, label, value, checked,register }) => {
   return (
     <div>
       <div className="cursor-pointer mb-3 ">
@@ -9,7 +9,7 @@ const FormRadiobtn = ({ name, label, value, checked, handleOnChange }) => {
           name={name}
           value={value}
           defaultChecked={checked}
-          onChange={handleOnChange}
+          {...register}
         />
         <label htmlFor={name} className="font-bold ml-2">
           {label}
@@ -27,5 +27,5 @@ FormRadiobtn.propTypes = {
   id: propTypes.string,
   value: propTypes.string,
   checked: propTypes.bool,
-  handleOnChange: propTypes.func,
+  register: propTypes.object,
 };

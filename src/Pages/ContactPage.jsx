@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+// import { useState } from "react";
 import FormInput from "../Components/Forms/FormInput";
 import FormButton from "../Components/buttons/FormButton";
 import FormTextArea from "../Components/Forms/FormTextArea";
@@ -7,31 +7,15 @@ import FormCheckBox from "../Components/Forms/FormCheckBox";
 import FormRadiobtn from "../Components/Forms/FormRadiobtn";
 
 const ContactPage = () => {
-  // 🔴
-  const [formInputs, setFormInputs] = useState({
-    fullname: "",
-    email: "",
-    description: "",
-    privacycheck: false,
-    gender: "Male",
-  });
-
-  // Handle inputs
-  const handleInputs = (e) => {
-    const { name, value, type, checked } = e.target;
-    console.log(value);
-
-    setFormInputs(() => ({
-      ...formInputs,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      fullname: "Abishek",
+    },
+  });
 
   const formSubmit = (e) => {
     console.log(e);
@@ -46,41 +30,38 @@ const ContactPage = () => {
             <h4 className="text-2xl font-bold">Contact Us</h4>
           </div>
 
-          <div className="bg-white">{JSON.stringify(formInputs)}</div>
+          {/* <div className="bg-white">{JSON.stringify(formInputs)}</div> */}
           <div className="border-b border-r border-s border-gray-700 border-dashed w-full">
             <div className="bg-[#FEFBF6] px-2 py-2 rounded shadow shadow-[#EEF0E5] mt-6 mb-5 max-w-[500px] mx-auto ">
               <form action="" onSubmit={handleSubmit(formSubmit)} className="">
                 <FormInput
                   // Forms input Object key name and component name must be same
-                  register={register}
+                  register={register("fullname", {
+                    required: "Fullname is required",
+                  })}
                   name="fullname" // 🔴
                   label="Enter your Fullname"
                   placeholder="Enter your fullname"
-                  value={formInputs.fullname}
-                  handleOnChange={handleInputs}
-                  errors={errors}
+                  errors={errors.fullname}
+                  required
 
                   // required
                 />
 
                 <FormInput
-                  register={register}
+                  register={register("email")}
                   name="email"
                   label="Enter Your Email"
                   placeholder="Enter your email address"
-                  value={formInputs.email}
-                  handleOnChange={handleInputs}
-                  // required={true}
-                  errors={errors}
+                  errors={errors.email}
                 />
 
+                {/* service Types */}
                 <FormTextArea
+                  register={register("description")}
                   name="description"
                   label="Enter Your Description"
                   placeholder="Describe your issue here!"
-                  value={formInputs.description}
-                  handleOnChange={handleInputs}
-                  // required
                 />
 
                 {/* Radio */}
@@ -91,30 +72,22 @@ const ContactPage = () => {
                     name="gender"
                     label="Male"
                     value="Male"
-                    handleOnChange={handleInputs}
-                    checked={formInputs.gender === "Male"}
+                    register={register("gender")}
                   />
 
                   <FormRadiobtn
                     name="gender"
                     label="Female"
                     value="Female"
-                    checked={formInputs.gender === "Female"}
-                    handleOnChange={handleInputs}
+                    register={register("gender")}
                   />
-                  <FormRadiobtn
-                    name="gender"
-                    label="Other"
-                    value="Other"
-                    checked={formInputs.gender === "Other"}
-                    handleOnChange={handleInputs}
-                  />
+                  <FormRadiobtn name="gender" label="Other" value="Other" />
                 </div>
 
                 <FormCheckBox
+                  register={register("privacycheck")}
                   name="privacycheck"
                   label={"I agree to the Privacy policy."}
-                  handleOnChange={handleInputs}
                 />
 
                 <div>
